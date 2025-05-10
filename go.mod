@@ -1,8 +1,9 @@
 module github.com/avidal/vxexp
 
-go 1.24.2
+// track vaxis go version
+go 1.18
 
-require git.sr.ht/~rockorager/vaxis v0.13.0
+require git.sr.ht/~rockorager/vaxis v0.13.1-0.20250508140131-e8e1ab2c8884
 
 require (
 	github.com/containerd/console v1.0.3 // indirect
