@@ -1,5 +1,7 @@
 # vxexp
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/avidal/vxexp.svg)](https://pkg.go.dev/github.com/avidal/vxexp)
+
 vxexp is a collection of experimental widgets and utility functions for the [dank] terminal UI
 library [vaxis/vxfw] by [rockorager].
 
