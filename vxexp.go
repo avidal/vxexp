@@ -23,3 +23,32 @@ func (fn EventHandlerFunc) HandleEvent(event vaxis.Event, phase vxfw.EventPhase)
 
 // Draw implements [vxfw.Widget]
 func (_ EventHandlerFunc) Draw(_ vxfw.DrawContext) (vxfw.Surface, error) { return vxfw.Surface{}, nil }
+
+func ClampUint16(x, min, max uint16) uint16 {
+	switch {
+	case x == 0:
+		return min
+	case x < min:
+		return min
+	case x > max:
+		return max
+	default:
+		return x
+	}
+}
+
+// TightenContext returns a [vxfw.DrawContext] whose min and max along each dimension is as close
+// to size as possible while still staying in-bounds. If either dimension of size is 0, it's
+// ignored.
+func TightenContext(ctx vxfw.DrawContext, size vxfw.Size) vxfw.DrawContext {
+	out := vxfw.Size{
+		Width:  ClampUint16(size.Width, ctx.Min.Width, ctx.Max.Width),
+		Height: ClampUint16(size.Height, ctx.Min.Height, ctx.Max.Height),
+	}
+	return ctx.WithConstraints(out, out)
+}
+
+// LoosenContext takes a [vxfw.DrawContext] and returns a context with no minimum sizes.
+func LoosenContext(ctx vxfw.DrawContext) vxfw.DrawContext {
+	return ctx.WithMin(vxfw.Size{})
+}
